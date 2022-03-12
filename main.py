@@ -11,7 +11,7 @@ app = Client("my_account")
 @app.on_message(filters.command('help', prefixes='.') & filters.me)
 def help(_, msg):
     commands = '.help - Выводит все доступные команды\n.type text - Анимация печчати\n.gay - Гей тест (выбирает рандом челика из группы или лс)\n.gaytest - Аналог .gay предназначенный для проверки одного пользвателя (в ответ на его сообщение отправить команду)\n.love text - Анимация сердечка'
-    msg.edit()
+    msg.edit(commands)
 
 @app.on_message(filters.command('type', prefixes='.') & filters.me)
 def type(_, msg):
@@ -145,5 +145,26 @@ def love(_, msg):
             sleep(0.3)
         except FloodWait as e:
             sleep(e.x)
+
+@app.on_message(filters.command('x', prefixes='.') & filters.me)
+def x(_, msg):
+    '''⬜️🟥🟧🟨🟩🟦🟪⬛️🟫'''
+    cubes = ['🟥', '🟧', '🟨', '🟩', '🟦', '🟪', '⬛️', '🟫', '⬜️']
+    text = '⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️'
+
+    msg.edit(text)
+
+    new_text = text
+    old_cube = cubes[-1]
+    while True:
+        for i in cubes:
+            while old_cube in new_text:
+                new_text = new_text.replace(old_cube, i, 1)
+                try:
+                    msg.edit(new_text)
+                except FloodWait as e:
+                    sleep(e.x)
+                sleep(1)
+            old_cube = i
 
 app.run()
