@@ -167,4 +167,18 @@ def x(_, msg):
                 sleep(1)
             old_cube = i
 
+@app.on_message(filters.command('random', prefixes='.') & filters.me)
+def random_num(_, msg):
+    text = msg.text.split('.random ', maxsplit=1)[1]
+    nums = text.split(maxsplit=1)
+
+    for i, num in enumerate(nums):
+        try:
+            num = int(num)
+        except ValueError:
+            msg.edit('Вы ввели не число')
+        nums[i] = num
+    
+    msg.edit(random.randint(nums[0], nums[1]))
+
 app.run()
