@@ -10,7 +10,14 @@ app = Client("my_account")
 
 @app.on_message(filters.command('help', prefixes='.') & filters.me)
 def help(_, msg):
-    commands = '.help - Выводит все доступные команды\n.type text - Анимация печчати\n.gay - Гей тест (выбирает рандом челика из группы или лс)\n.gaytest - Аналог .gay предназначенный для проверки одного пользвателя (в ответ на его сообщение отправить команду)\n.love text - Анимация сердечка'
+    commands = '''
+                .help - Выводит все доступные команды\n
+                .type text - Анимация печчати\n
+                .gay - Гей тест (выбирает рандом челика из группы или лс)\n
+                .gaytest - Аналог .gay предназначенный для проверки одного пользвателя (в ответ на его сообщение отправить команду)\n
+                .love text - Анимация сердечка\n
+                .random from to - Рандомное число от и до
+                '''
     msg.edit(commands)
 
 @app.on_message(filters.command('type', prefixes='.') & filters.me)
