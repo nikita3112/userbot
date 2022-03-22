@@ -1,11 +1,23 @@
+from sys import prefix
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from time import sleep
 import random
 
-
-
 app = Client("my_account")
+
+def get_name_of_weekday(day):
+    match day:
+        case 1:
+            return 'понедельник'
+        case 2:
+            return 'вторник'
+        case 3:
+            return 'среда'
+        case 4:
+            return 'четверг'
+        case 5:
+            return 'пятница'
 
 
 @app.on_message(filters.command('help', prefixes='.') & filters.me)
@@ -187,5 +199,36 @@ def random_num(_, msg):
         nums[i] = num
     
     msg.edit(random.randint(nums[0], nums[1]))
+
+@app.on_message((filters.command('autodroch', prefixes='.') & filters.me) | (filters.user(1303228016) & filters.reply))
+def autodroch(_, msg):
+    minutes = ['минуты', 'минуту', 'минут']
+    hours = ['часа', 'часов', 'час']
+
+    if msg.from_user.is_self:
+        msg.edit('Автодроч запущен!')
+        app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
+    elif msg.reply_to_message.from_user.is_self:
+        time = msg.text.split('через ')[1].split(' ⏰')[0]
+        hour = minute = 0
+
+        for i in hours:
+            if i in time:
+                hour = int(time.split(i)[0].strip())
+                time = time.split(i)[1].strip()
+                break
+        
+        for j in minutes:
+            if j in time:
+                minute = int(time.split(j)[0].strip())
+                break
+        
+        text = 'Ждем ' + (str(hour) + ' час ' if hour else '') + (str(minute) + ' минуты' if minute else '')
+        app.send_message(msg.chat.id, text)
+
+        wait_time = (hour * 3600 if hour else 0) + (minute * 60 if minute else 0)
+        sleep(wait_time + 60)
+
+        app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
 
 app.run()
