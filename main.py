@@ -5,20 +5,6 @@ import random
 
 app = Client("my_account")
 
-def get_name_of_weekday(day):
-    match day:
-        case 1:
-            return 'понедельник'
-        case 2:
-            return 'вторник'
-        case 3:
-            return 'среда'
-        case 4:
-            return 'четверг'
-        case 5:
-            return 'пятница'
-
-
 @app.on_message(filters.command('help', prefixes='.') & filters.me)
 def help(_, msg):
     commands = '''
