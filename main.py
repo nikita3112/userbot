@@ -1,4 +1,3 @@
-from sys import prefix
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from time import sleep
