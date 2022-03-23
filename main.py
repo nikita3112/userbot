@@ -194,7 +194,9 @@ def autodroch(_, msg):
     if msg.from_user.is_self:
         msg.edit('Автодроч запущен!')
         app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
-    elif msg.reply_to_message.from_user.is_self:
+        sleep(1)
+        app.send_message(msg.chat.id, '/dick@xyu_epta_bot')
+    elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/drochnut@xyu_epta_bot":
         time = msg.text.split('через ')[1].split(' ⏰')[0]
         hour = minute = 0
 
@@ -216,5 +218,13 @@ def autodroch(_, msg):
         sleep(wait_time + 60)
 
         app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
+    elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/dick@xyu_epta_bot":
+        app.send_message(msg.chat.id, 'Ждем 6 часов')
+        sleep((6 * 3600) + 60)
+        app.send_message(msg.chat.id, '/dick@xyu_epta_bot')
+    elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/case@xyu_epta_bot":
+        app.send_message(msg.chat.id, 'Ждем сутки часов')
+        sleep((24 * 3600) + 60)
+        app.send_message(msg.chat.id, '/case@xyu_epta_bot')
 
 app.run()
