@@ -225,7 +225,7 @@ def autodroch(_, msg):
         sleep((6 * 3600) + 60)
         app.send_message(msg.chat.id, '/dick@xyu_epta_bot')
     elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/case@xyu_epta_bot":
-        app.send_message(msg.chat.id, 'Ждем сутки часов')
+        app.send_message(msg.chat.id, 'Ждем сутки')
         sleep((24 * 3600) + 60)
         app.send_message(msg.chat.id, '/case@xyu_epta_bot')
 
