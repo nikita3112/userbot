@@ -214,19 +214,22 @@ def autodroch(_, msg):
                 break
         
         text = 'Ждем ' + (str(hour) + ' час ' if hour else '') + (str(minute) + ' минуты' if minute else '')
-        app.send_message(msg.chat.id, text)
+        print('DROCH -- ' + text)
 
         wait_time = (hour * 3600 if hour else 0) + (minute * 60 if minute else 0)
         sleep(wait_time + 60)
 
         app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
+        print('DROCH -- Дрочим')
     elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/dick@xyu_epta_bot":
-        app.send_message(msg.chat.id, 'Ждем 6 часов')
+        print('DICK -- Ждем 6 часов')
         sleep((6 * 3600) + 60)
         app.send_message(msg.chat.id, '/dick@xyu_epta_bot')
+        print('DICK -- Растим письку')
     elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/case@xyu_epta_bot":
-        app.send_message(msg.chat.id, 'Ждем сутки')
+        print('CASE -- Ждем сутки')
         sleep((24 * 3600) + 60)
         app.send_message(msg.chat.id, '/case@xyu_epta_bot')
+        print('CASE -- Открываем кейс')
 
 app.run()
