@@ -196,6 +196,8 @@ def autodroch(_, msg):
         app.send_message(msg.chat.id, '/drochnut@xyu_epta_bot')
         sleep(1)
         app.send_message(msg.chat.id, '/dick@xyu_epta_bot')
+        sleep(1)
+        app.send_message(msg.chat.id, '/case@xyu_epta_bot')
     elif msg.reply_to_message.from_user.is_self and msg.reply_to_message.text == "/drochnut@xyu_epta_bot":
         time = msg.text.split('через ')[1].split(' ⏰')[0]
         hour = minute = 0
