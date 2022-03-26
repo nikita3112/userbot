@@ -186,6 +186,24 @@ def random_num(_, msg):
     
     msg.edit(random.randint(nums[0], nums[1]))
 
+@app.on_message(filters.command('flag', prefixes='.') & filters.me)
+def flag(_, msg):
+    '''⬜️🟦🟥🟨'''
+    ru = '⬜️⬜️⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️⬜️⬜️\n🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥'
+    ua = '🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟨🟨🟨🟨🟨🟨\n🟨🟨🟨🟨🟨🟨\n🟨🟨🟨🟨🟨🟨'
+    plus = '⬜️⬜️🟥🟥⬜️⬜️\n⬜️⬜️🟥🟥⬜️⬜️\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥\n⬜️⬜️🟥🟥⬜️⬜️\n⬜️⬜️🟥🟥⬜️⬜️'
+    ravno = '🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥\n⬜️⬜️⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️⬜️⬜️\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥'
+
+    msg.edit(ru)
+    sleep(1)
+    msg.edit(plus)
+    sleep(1)
+    msg.edit(ua)
+    sleep(1)
+    msg.edit(ravno)
+    sleep(1)
+    msg.edit(ru)
+
 @app.on_message((filters.command('autodroch', prefixes='.') & filters.me) | (filters.user(1303228016) & filters.reply))
 def autodroch(_, msg):
     minutes = ['минуты', 'минуту', 'минут']
