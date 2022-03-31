@@ -2,6 +2,10 @@ from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from time import sleep
 import random
+from utils import time_has_changed, generate_time_image_bytes
+from datetime import datetime, timedelta
+import pytz
+import argparse
 
 app = Client("my_account")
 
@@ -186,24 +190,6 @@ def random_num(_, msg):
     
     msg.edit(random.randint(nums[0], nums[1]))
 
-@app.on_message(filters.command('flag', prefixes='.') & filters.me)
-def flag(_, msg):
-    '''⬜️🟦🟥🟨'''
-    ru = '⬜️⬜️⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️⬜️⬜️\n🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥'
-    ua = '🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟦🟦🟦🟦🟦🟦\n🟨🟨🟨🟨🟨🟨\n🟨🟨🟨🟨🟨🟨\n🟨🟨🟨🟨🟨🟨'
-    plus = '⬜️⬜️🟥🟥⬜️⬜️\n⬜️⬜️🟥🟥⬜️⬜️\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥\n⬜️⬜️🟥🟥⬜️⬜️\n⬜️⬜️🟥🟥⬜️⬜️'
-    ravno = '🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥\n⬜️⬜️⬜️⬜️⬜️⬜️\n⬜️⬜️⬜️⬜️⬜️⬜️\n🟥🟥🟥🟥🟥🟥\n🟥🟥🟥🟥🟥🟥'
-
-    msg.edit(ru)
-    sleep(1)
-    msg.edit(plus)
-    sleep(1)
-    msg.edit(ua)
-    sleep(1)
-    msg.edit(ravno)
-    sleep(1)
-    msg.edit(ru)
-
 @app.on_message((filters.command('autodroch', prefixes='.') & filters.me) | (filters.user(1303228016) & filters.reply))
 def autodroch(_, msg):
     minutes = ['минуты', 'минуту', 'минут']
@@ -249,5 +235,21 @@ def autodroch(_, msg):
         sleep((24 * 3600) + 60)
         app.send_message(msg.chat.id, '/case@xyu_epta_bot')
         print('CASE -- Открываем кейс')
+
+@app.on_message(filters.command('time', prefixes='.') & filters.me)
+def time_photo(_, msg):
+    tz = pytz.timezone('Europe/Moscow')
+    
+    prev_update_time = datetime.now() - timedelta(minutes=1)
+
+    while True:
+        if time_has_changed(prev_update_time):
+            path = generate_time_image_bytes(datetime.now(tz).replace(tzinfo=None))
+            photos = app.get_profile_photos("me")
+            if photos:
+                app.delete_profile_photos(photos[0].file_id)
+            app.set_profile_photo(photo=path)
+            prev_update_time = datetime.now()
+            sleep(1)
 
 app.run()
