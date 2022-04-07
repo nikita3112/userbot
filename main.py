@@ -245,10 +245,10 @@ def time_photo(_, msg):
     while True:
         if time_has_changed(prev_update_time):
             path = generate_time_image_bytes(datetime.now(tz).replace(tzinfo=None))
-            photos = app.get_profile_photos("me")
-            if photos:
-                app.delete_profile_photos(photos[0].file_id)
             app.set_profile_photo(photo=path)
+            photos = app.get_profile_photos("me")
+            for i in photos[1:]:
+                app.delete_profile_photos(i.file_id)
             prev_update_time = datetime.now()
             sleep(1)
 
